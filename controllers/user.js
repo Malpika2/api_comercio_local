@@ -36,6 +36,7 @@ exports.saveUser = function (req, res){
         telefono:telefono,
         email:email,
         password:password});
+        console.log(req);
     user.save( (err, user) =>  {
     
         if (err) return console.error(err);

@@ -11,8 +11,9 @@ app.use(cors())
 
 
 // Middlewares (ejecutar metodo antes del controlador) * BodyParse convierte el body de las consultas a JSON
-app.use(bodyParser.urlencoded({extended:false})); 
-
+app.use(express.urlencoded({extended:true}));; // archivos
+app.use(express.json());
+// app.use(bodyParser.urlencoded({extended: false}));
 //Cargar rutas al servidor
 app.use('/api',user_routes); 
 
