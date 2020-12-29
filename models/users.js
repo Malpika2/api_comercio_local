@@ -2,7 +2,7 @@
 const mongoose = require('mongoose'); //Creamos modulo mongoose
 const Schema = mongoose.Schema; //Objeto esquema y sus atributos
 const UserSchema = Schema({
-    name:String,
+    nombre:String,
     telefono:Number,
     email:String,
     password:String

@@ -29,20 +29,22 @@ exports.getUser = function(req, res) {
     });
 }
 
-exports.saveUser = function (req, res){
+exports.saveUser = async function (req, res){
     const {telefono,nombre,email,password} = req.body;
 
-    const user = new User({name:nombre,
+    const user = new User({
+        nombre:nombre,
         telefono:telefono,
         email:email,
         password:password});
         console.log(req);
-    user.save( (err, user) =>  {
+    await user.save( (err, user) =>  {
     
         if (err) return console.error(err);
         console.log('new user saved');
         return res.status(200).send({
-            message:'Created'
+            message:'Usuario registrado',
+            user:user
         })
     });
 }
