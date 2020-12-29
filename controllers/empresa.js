@@ -2,7 +2,13 @@
 
 const Empresa = require('../models/empresas');
 const multer = require('multer')
-// const upload = multer({ dest: '../uploads/'}).single('logo')
+
+
+
+
+
+
+// Metodos/Funciones
 exports.getCategorias = function (req, res){
     const categoria = req.params.categoria;
     
@@ -23,31 +29,18 @@ exports.getCategorias = function (req, res){
     });
 }
 exports.uploadLogo = async function (req,res){
-    // app.post('/profile', upload.single('avatar'), function (req, res, next) {
-    //     upload(req,res, (err) => {
-    //     if (err instanceof multer.MulterError){
-    //         console.log(err);
-    //         return res.status(400).send({
-    //             message:"Multer error",
-    //             error: err
-    //         });
-    //     }else if(err){
-    //         console.log(err);
-    //         return res.status(400).send({
-    //             message:"Error desconocido while upload",
-    //             error: err
-    //         });
-    //     }
-    //     return res.status(200).send({
-    //         message:"Archivo Subido"
-    //     })
-    // });
+    console.log('logoinfo',req.file);
+    return res.status(200).send({
+        message:'Logotipo Actualizado',
+        filename: req.file.filename
+    })
 }
 exports.save = async function (req, res ){
-    const { id_usuario,nombre,descripcion,calle,colonia,municipio,estado,codigoPostal,celular,whatsapp,tags,categoria} = req.body;
+    const { id_usuario,nombre,descripcion,calle,colonia,municipio,estado,codigoPostal,celular,whatsapp,tags,categoria,filename} = req.body;
 
     const empresa = new Empresa({
         id_usuario: id_usuario,
+        logo:filename,
         nombre: nombre,
         descripcion: descripcion,
         calle: calle,
@@ -63,7 +56,7 @@ exports.save = async function (req, res ){
     await empresa.save( (err, empresa) => {
         if(err) return console.error(err);
 
-        console.log(empresa);
+        // console.log(empresa);
         return res.status(200).send({
             message:'Empresa Registrada',
             empresa:empresa

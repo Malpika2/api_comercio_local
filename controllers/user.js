@@ -37,11 +37,11 @@ exports.saveUser = async function (req, res){
         telefono:telefono,
         email:email,
         password:password});
-        console.log(req);
+        // console.log(req);
     await user.save( (err, user) =>  {
     
         if (err) return console.error(err);
-        console.log('new user saved');
+        // console.log('new user saved');
         return res.status(200).send({
             message:'Usuario registrado',
             user:user

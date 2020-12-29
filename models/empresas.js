@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 const EmpresaSchema = Schema({
     id_usuario: String,
+    logo: String,
     nombre: String,
     descripcion: String,
     calle: String,
