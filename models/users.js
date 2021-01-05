@@ -4,7 +4,12 @@ const Schema = mongoose.Schema; //Objeto esquema y sus atributos
 const UserSchema = Schema({
     nombre:String,
     telefono:Number,
-    email:String,
+    email:
+        { type: String,
+            unique: true,
+            required: true
+            
+        },
     password:String,
     fechaRegistro:Date,
 }); //Creamos el objeto del esquema y sus atributos
