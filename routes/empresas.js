@@ -36,6 +36,6 @@ const md_auth = require('../middlewares/authenticated');
 
 api.post('/empresa/uploadLogo', upload, empresaControlador.uploadLogo);
 api.post('/empresa/save', empresaControlador.save);
-api.get('/empresa/getCategorias/',empresaControlador.getCategorias);
+// api.get('/empresa/getCategorias/',empresaControlador.getCategorias);
 
 module.exports = api;

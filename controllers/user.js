@@ -31,32 +31,38 @@ exports.getUser = function(req, res) {
 
 exports.saveUser = async function (req, res){
     const {telefono,nombre,email,password} = req.body;
-    
-    const diez = 10;
-    const myPlaintextPassword = 's0/\/\P4$$w0rD';
-    const someOtherPlaintextPassword = 'not_bacon';
 
-     bcrypt.hash(password, diez, async   function(err, hash) {
-        const user = new User({
-            nombre:nombre,
-            telefono:telefono,
-            email:email,
-            password:hash,
-        fechaRegistro: new Date()});
-            // console.log(req);
-        await user.save( (err, user) =>  {
+    User.findOne({ email:email  }).exec((err, result) => {
+        if(result._id)
+            return res.status(300).send({
+            message:'Email en uso',
+            error:'Email en uso'
+        })
         
-            if (err) return res.status(300).send({
-                message:'Ocurrió un error al registrar el usuario',
-                error: err
-            })
-            // console.log('new user saved');
-            return res.status(200).send({
-                message:'Usuario registrado',
-                user:user
-            })
-        });
+        const diez = 10;
+        bcrypt.hash(password, diez, async   function(err, hash) {
+           const user = new User({
+               nombre:nombre,
+               telefono:telefono,
+               email:email,
+               password:hash,
+           fechaRegistro: new Date()});
+               // console.log(req);
+           await user.save( (err, user) =>  {
+               if (err) return res.status(300).send({
+                   message:'Ocurrió un error al registrar el usuario',
+                   error: err
+               });
+               return res.status(200).send({
+                   message:'Usuario registrado',
+                   user:user
+               })
+           });
+       });
+
     });
+
+
 
 
 }

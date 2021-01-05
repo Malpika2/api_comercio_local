@@ -12,28 +12,28 @@ const multer = require('multer')
 exports.getCategorias = function (req, res){
 
 
-Empresa.aggregate().sort({ categoria : -1 } ).
-        group ( {_id: '$categoria' } ).
-        exec( (err, result) => {
-             if(err) {
-                return res.status(500).send({
-                    message:'Error en la peticion',
+// Empresa.aggregate().sort({ categoria : -1 } ).
+//         group ( {_id: '$categoria' } ).
+//         exec( (err, result) => {
+//              if(err) {
+//                 return res.status(500).send({
+//                     message:'Error en la peticion',
 
-                })
-            }
-            if(!result) {
-                return res.status(404).send({message:'No hay Categorias'})
-            }
-            console.log(result);
-            const categorias =result.map( (resu) => resu._id);
-            console.log('categoria',categorias);
-            return res.status(200).send({
-                error:err,
-                code_error:0,
-                error_message:err ? null : err,
-                response:categorias
-            })
-        });
+//                 })
+//             }
+//             if(!result) {
+//                 return res.status(404).send({message:'No hay Categorias'})
+//             }
+//             console.log(result);
+//             const categorias =result.map( (resu) => resu._id);
+//             console.log('categoria',categorias);
+//             return res.status(200).send({
+//                 error:err,
+//                 code_error:0,
+//                 error_message:err ? null : err,
+//                 response:categorias
+//             })
+//         });
 
     // const categoria = req.params.categoria;
     // console.log(categoria);
@@ -57,7 +57,7 @@ Empresa.aggregate().sort({ categoria : -1 } ).
         // });
 }
 exports.uploadLogo = async function (req,res){
-    console.log('logoinfo',req.file);
+    // console.log('logoinfo',req.file);
     return res.status(200).send({
         message:'Logotipo Actualizado',
         filename: req.file.filename
