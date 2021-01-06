@@ -33,7 +33,8 @@ exports.saveUser = async function (req, res){
     const {telefono,nombre,email,password} = req.body;
 
     User.findOne({ email:email  }).exec((err, result) => {
-        if(result._id)
+
+        if(result != null)
             return res.status(300).send({
             message:'Email en uso',
             error:'Email en uso'
