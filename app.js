@@ -13,8 +13,7 @@ app.use(cors())
 app.use(express.urlencoded({extended:true}));; // archivos
 app.use(express.json());
 
-
-
+app.use(express.static('public'));
 // Routes
 app.use('/api',empresas_routes);
 app.use('/api',user_routes); 
