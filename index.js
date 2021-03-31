@@ -7,7 +7,7 @@ const port = 3800;
 //Indicamos a mongoose que se hara la conexion con promesas
 mongoose.Promise = global.Promise; 
 // mongodb+srv://malpka:MongoDBMalpika256..>@comerciolocal.erh4o.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority
-mongoose.connect('mongodb+srv://malpka:wT4wvduyyHwZZsp@comerciolocal.erh4o.gcp.mongodb.net/comerciolocal?retryWrites=true&w=majority', { useMongoClient:true})
+mongoose.connect('mongodb+srv://malpka:wT4wvduyyHwZZsp@comerciolocal.erh4o.gcp.mongodb.net/comerciolocal?retryWrites=true&w=majority',{ useNewUrlParser: true, useUnifiedTopology: true })
     .then( () => {
         console.log("La conexion a la base de datos comercio_local_mx se ha realizado correctamente")
 
