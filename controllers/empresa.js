@@ -59,7 +59,11 @@ exports.search = async (req, res) => {
     }else{
         let query = {};
         query.tags = new RegExp(tags, 'i');
-        // query.categoria = 
+        query.nombre = new RegExp(tags, 'i');
+        query.categoria = new RegExp(categoria, 'i');
+        query.municipio = new RegExp(municipio, 'i');
+        // query.nombre = new RegExp(nombre, 'i');
+        // query.categoria = categoria.equals(categoria);
         Empresa.find(query).
         // find( {tags: new RegExp(tags, 'i')}).
         // where("categoria").equals(categoria).
