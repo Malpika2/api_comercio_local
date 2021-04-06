@@ -9,14 +9,14 @@ const api = express.Router();
 
 // Config
 const storage = multer.diskStorage({
-    destination: path.join(__dirname, '../uploads'),
+    destination: path.join(__dirname, '../public/uploads'),
     filename: (req, file, cb) => {
         cb(null,uuidv4()+ path.extname(file.originalname).toLocaleLowerCase());
     }
 })
 const upload = multer({
     storage,
-    dest: path.join(__dirname, '/uploads'),
+    dest: path.join(__dirname, 'public/uploads'),
     limits: {fileSize: 1000000},
     fileFilter: (req, file, cb) => {
         const filetypes = /jpeg|jpg|png/;

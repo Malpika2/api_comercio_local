@@ -1,7 +1,8 @@
 'use strict'
 
 const Empresa = require('../models/empresas');
-const multer = require('multer')
+const multer = require('multer');
+const { query } = require('express');
 
 
 exports.uploadLogo = async function (req,res){
@@ -49,21 +50,24 @@ exports.search = async (req, res) => {
     if(tags == '' && categoria == '' && municipio=='' && page == 1){
         Empresa.
         find().limit(20).sort('nombre').exec( (err, result) => {
-            // console.log(result);
+            console.log('todos');
             return res.status(200).send({
                 result:result
             });
             
         });
     }else{
-        Empresa.
-        find({ tags : { $regex: tags } }).
-        where("categoria").equals(categoria).
-        where('municipio').equals(municipio).
+        let query = {};
+        query.tags = new RegExp(tags, 'i');
+        // query.categoria = 
+        Empresa.find(query).
+        // find( {tags: new RegExp(tags, 'i')}).
+        // where("categoria").equals(categoria).
+        // where('municipio').equals(municipio).
         limit(20).
         sort('nombre').
         exec( (err, result) => {
-            // console.log(result);
+            console.log(tags);
             return res.status(200).send({
                 result:result
             });
