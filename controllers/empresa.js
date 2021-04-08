@@ -27,7 +27,7 @@ exports.save = async function (req, res ){
         codigoPostal: codigoPostal,
         celular: celular,
         whatsapp: whatsapp,
-        tags: tags,
+        tags: `${tags},${nombre}`,
         categoria: categoria,
     })
     await empresa.save( (err, empresa) => {
@@ -57,17 +57,22 @@ exports.search = async (req, res) => {
             
         });
     }else{
-        let query = {};
-        query.tags = new RegExp(tags, 'i');
-        query.nombre = new RegExp(tags, 'i');
-        query.categoria = new RegExp(categoria, 'i');
-        query.municipio = new RegExp(municipio, 'i');
+        // let query = {};
+        // query.nombre = new RegExp(tags, 'i');
+        // query.tags = new RegExp(tags, 'i');
+        // query.categoria = new RegExp(categoria, 'i');
+        // query.municipio = new RegExp(municipio, 'i');
         // query.nombre = new RegExp(nombre, 'i');
         // query.categoria = categoria.equals(categoria);
-        Empresa.find(query).
+        // Empresa.find(query).
         // find( {tags: new RegExp(tags, 'i')}).
         // where("categoria").equals(categoria).
         // where('municipio').equals(municipio).
+        Empresa.aggregate( [ 
+                            { $match: { tags: new RegExp(tags, 'i') } }, 
+                            { $match: { categoria: { '$regex': categoria } } }, 
+                            { $match: { municipio: { '$regex': municipio } } } 
+                        ] ).
         limit(20).
         sort('nombre').
         exec( (err, result) => {
