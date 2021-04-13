@@ -43,14 +43,13 @@ exports.save = async function (req, res ){
 
 exports.search = async (req, res) => {
     const {tags, categoria, municipio , page} = req.body;
-    console.log('search: ',tags);
-    console.log('categoria: ',categoria);
-    console.log('municipio: ',municipio);
-    console.log('page: ',page);
+    // console.log('search: ',tags);
+    // console.log('categoria: ',categoria);
+    // console.log('municipio: ',municipio);
+    // console.log('page: ',page);
     if(tags == '' && categoria == '' && municipio=='' && page == 1){
         Empresa.
         find().limit(20).sort('nombre').exec( (err, result) => {
-            console.log('todos');
             return res.status(200).send({
                 result:result
             });
@@ -76,7 +75,7 @@ exports.search = async (req, res) => {
         limit(20).
         sort('nombre').
         exec( (err, result) => {
-            console.log(tags);
+            console.log(result);
             return res.status(200).send({
                 result:result
             });
