@@ -40,14 +40,14 @@ exports.save = async function (req, res ){
         })
     })
 }
-
+// IM HERE! FIXIN HERE.
 exports.search = async (req, res) => {
     const {tags, categoria, municipio , page} = req.body;
-    // console.log('search: ',tags);
-    // console.log('categoria: ',categoria);
-    // console.log('municipio: ',municipio);
-    // console.log('page: ',page);
-    if(tags == '' && categoria == '' && municipio=='' && page == 1){
+    console.log('search: ',tags);
+    console.log('categoria: ',categoria);
+    console.log('municipio: ',municipio);
+    console.log('page: ',page);
+    if(tags == '' && categoria == '' && municipio=='' && page == 0){
         Empresa.
         find().limit(20).sort('nombre').exec( (err, result) => {
             return res.status(200).send({
@@ -67,6 +67,7 @@ exports.search = async (req, res) => {
         // find( {tags: new RegExp(tags, 'i')}).
         // where("categoria").equals(categoria).
         // where('municipio').equals(municipio).
+        console.log('paginate')
         Empresa.aggregate( [ 
                             { $match: { tags: new RegExp(tags, 'i') } }, 
                             { $match: { categoria: { '$regex': categoria } } }, 
@@ -74,6 +75,7 @@ exports.search = async (req, res) => {
                         ] ).
         limit(20).
         sort('nombre').
+        skip(page*20).
         exec( (err, result) => {
             console.log(result);
             return res.status(200).send({
