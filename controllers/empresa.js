@@ -73,17 +73,16 @@ exports.search = async (req, res) => {
                             { $match: { categoria: { '$regex': categoria } } }, 
                             { $match: { municipio: { '$regex': municipio } } } 
                         ] ).
+        skip(page*20).  
         limit(20).
         sort('nombre').
-        skip(page*20).
         exec( (err, result) => {
-            console.log(result);
+            // console.log(result);
             return res.status(200).send({
                 result:result
             });
             
         });
     }
-// exec(callback);
 
 }
